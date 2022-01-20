@@ -1,0 +1,11 @@
+Package: recursiveCorPlot
+Type: Package
+Title: Recursive correlation based natural clustering (using ggplot, labels and historgrams)
+Version: 0.1.0
+Author: Dr. Youri Hoogstrate
+Maintainer: Youri Hoogstrate <y.hoogstrate@erasmusmc.nl>
+Description: Recursive correlation based natural clustering (using ggplot,
+    labels and historgrams)
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
