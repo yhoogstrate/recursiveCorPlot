@@ -16,4 +16,5 @@ Depends:
 Imports:
     stats,
     dplyr,
-    tibble
+    tibble,
+    patchwork
