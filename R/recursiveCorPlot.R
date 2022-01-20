@@ -1,4 +1,4 @@
-# Hello, world!
+# recursiveCorPlot
 #
 # This is an example function named 'recursiveCorPlot'
 # which makes a clustered correlation plot using recursive correlation as
@@ -15,5 +15,11 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , legend_scale , method="ward.D2") {
-  print("Hello, world!")
+
+  # remove duplicate entries:
+  plt <- normalised_correlated_data %>%
+    tibble::rownames_to_column('__hugo_symbol__') %>%
+    dplyr::filter(!duplicated(`__hugo_symbol__`)) %>%
+    tibble::column_to_rownames('__hugo_symbol__')
+
 }
