@@ -1,1 +1,10 @@
-exportPattern("^[[:alpha:]]+")
+
+export(scaleRadius)
+export(GeomCircle)
+export(geom_circle)
+
+export(recursiveCorPlot)
+
+import(dplyr)
+import(stats)
+import(tibble)
