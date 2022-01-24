@@ -85,7 +85,7 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
     geom_tile( col="gray", fill="white", lwd=0.15) +
     scale_fill_gradientn( colours = col2(200), na.value = "grey50", limits = c(-1,1) , guide="none") + # guide = "colourbar",
     scale_color_gradientn( colours = col2(200), na.value = "grey50", limits = c(-1,1) , guide="none" ) +
-    geomnet::geom_circle(radius.fixed = T) + # not to be confused w/ geomnet::geom_circle, and install my committed updated code [https://github.com/yhoogstrate/geomnet]
+    geom_circle(radius.fixed = T) + # from THIS repo
     scale_x_discrete(labels = NULL, breaks = NULL) +
     theme(legend.position = 'bottom',
           axis.text.y = element_text(size = font_scale, angle = 0, hjust = 1, vjust = 0.5), # used to be [3,6] reduce font size here, should become argument

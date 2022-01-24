@@ -17,4 +17,5 @@ Imports:
     stats,
     dplyr,
     tibble,
-    patchwork
+    patchwork,
+    reshape2
