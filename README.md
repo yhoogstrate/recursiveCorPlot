@@ -12,8 +12,8 @@ Using recursive correlation clustering provides considerably more natural cluste
 ## Examples
 
 | Example with G-SAM DE Genes: |
-| `data('G.SAM.corrected.DE.genes.VST', package = 'recursiveCorPlot')` |
 |---------------------------------------------|
+| `data('G.SAM.corrected.DE.genes.VST', package = 'recursiveCorPlot')` |
 | <img src="https://github.com/yhoogstrate/recursiveCorPlot/raw/master/extern/cor_cor_.png" width="60%">  |
 | Above: recursive correlation based clustering |
 | |
