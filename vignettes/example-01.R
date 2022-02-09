@@ -1,10 +1,13 @@
 #!/usr/bin/env R
 
+# load libs ----
+
 library(dplyr)
 
 devtools::install_github("yhoogstrate/recursiveCorPlot")
 library(recursiveCorPlot)
 
+# example 1 ----
 
 set.seed(1+3*3+7)
 example.data <-
@@ -32,3 +35,15 @@ recursiveCorPlot(example.data, example.metadata, 12 , 1)
 # equivalent:
 # install.packages('corrplot')
 # corrplot::corrplot(cor(t(example.data)))
+
+
+# example 2 ----
+
+
+data('G.SAM.corrected.DE.genes.VST', package = 'recursiveCorPlot')
+data('G.SAM.corrected.DE.labels', package = 'recursiveCorPlot')
+recursiveCorPlot(G.SAM.corrected.DE.genes.VST, G.SAM.corrected.DE.labels, 3 , 3)
+
+
+
+
