@@ -20,3 +20,4 @@ Imports:
     patchwork,
     reshape2,
     ggdendro
+RoxygenNote: 7.1.1.9001
