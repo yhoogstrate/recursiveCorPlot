@@ -15,14 +15,10 @@ Using recursive correlation clustering provides considerably more natural cluste
 |---------------------------------------------|
 | <img src="https://github.com/yhoogstrate/recursiveCorPlot/raw/master/extern/cor_cor_.png" width="60%">  |
 | Above: recursive correlation based clustering |
-|---------------------------------------------|
 | |
-|---------------------------------------------|
 | <img src="https://github.com/yhoogstrate/recursiveCorPlot/raw/master/extern/cor.png" width="60%">  |
 | Above: regular 1 - correlation based clustering |
-|---------------------------------------------|
 | |
-|---------------------------------------------|
 | <img src="https://github.com/yhoogstrate/recursiveCorPlot/raw/master/extern/scale_euclidean.png" width="60%">  |
 | Above: scaled Euclidean distance based clustering |
 
