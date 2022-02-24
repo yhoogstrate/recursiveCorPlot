@@ -45,5 +45,6 @@ data('G.SAM.corrected.DE.labels', package = 'recursiveCorPlot')
 recursiveCorPlot(G.SAM.corrected.DE.genes.VST, G.SAM.corrected.DE.labels, 3 , 3)
 
 
+recursiveCorPlot(G.SAM.corrected.DE.genes.VST, G.SAM.corrected.DE.labels %>% dplyr::select(endothelial, neuron, oligodendrocyte), 3 , 3)
 
 

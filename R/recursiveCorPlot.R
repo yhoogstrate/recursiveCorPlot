@@ -17,8 +17,6 @@
 
 
 recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , legend_scale , method="ward.D2") {
-  print("recursiveCorPlot")
-
   col2 <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
                              "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE",
                              "#4393C3", "#2166AC", "#053061"))
@@ -31,14 +29,19 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
     tibble::column_to_rownames('__hugo_symbol__')
 
 
+  #h <- hclust(dist(plt %>% as.matrix %>% t() %>%  scale %>% t() %>% as.matrix), method = method ) # Euclidean distance based clustering
+
   # determine correlation
   plt <- plt %>%
     as.matrix %>%
     t() %>%
     cor()
 
+
   # find order by taking correlation of the correlation
-  h <- hclust( as.dist(1 - cor(plt)) , method = method ) # Geniale manier om te clusteren!!!
+  h <- hclust( as.dist(1 - cor(plt)), method = method ) # recursive cor-based cluastering !!!
+  #h <- hclust( as.dist(1 - plt) , method = method ) # regular cor-based clustering
+
   o <- h$labels[h$order] %>% rev()
 
   ph <- ggdendro::ggdendrogram(h, rotate = TRUE, theme_dendro = FALSE) +
@@ -112,7 +115,7 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
 
 
   p2 <- ggplot(plt , aes(x = i , y = variable , fill=value, label=gid)) +
-    geom_tile(col='white',lwd=0.6) +
+    geom_tile(col='white',lwd=0.15) +
     #scale_x_discrete(position = "bottom")  +
     scale_x_discrete(labels = NULL, breaks = NULL) +
     theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust = 0.5),
