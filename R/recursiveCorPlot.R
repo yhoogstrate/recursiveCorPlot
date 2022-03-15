@@ -141,7 +141,7 @@ BC'
   wrap_plots(A = p2, B = p1, C = (ph + plot_spacer () )  , design = layout)
 
 
-  # return a value / p1 p2 or layout?
+  return(h) # return clust object
 }
 
 
