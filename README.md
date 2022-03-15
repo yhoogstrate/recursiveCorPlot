@@ -14,13 +14,13 @@ Using recursive correlation clustering provides considerably more natural cluste
 | Example with G-SAM DE Genes: |
 |---------------------------------------------|
 | `data('G.SAM.corrected.DE.genes.VST', package = 'recursiveCorPlot')` |
-| <img src="https://github.com/yhoogstrate/recursiveCorPlot/raw/master/extern/cor_cor_.png" width="60%">  |
+| <img src="https://github.com/yhoogstrate/recursiveCorPlot/raw/master/extern/cor_cor_.png" width="85%">  |
 | Above: recursive correlation based clustering |
 | |
-| <img src="https://github.com/yhoogstrate/recursiveCorPlot/raw/master/extern/cor.png" width="60%">  |
+| <img src="https://github.com/yhoogstrate/recursiveCorPlot/raw/master/extern/cor.png" width="85%">  |
 | Above: regular 1 - correlation based clustering |
 | |
-| <img src="https://github.com/yhoogstrate/recursiveCorPlot/raw/master/extern/scale_euclidean.png" width="60%">  |
+| <img src="https://github.com/yhoogstrate/recursiveCorPlot/raw/master/extern/scale_euclidean.png" width="85%">  |
 | Above: scaled Euclidean distance based clustering |
 
 ## Method
