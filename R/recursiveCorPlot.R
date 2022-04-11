@@ -149,6 +149,8 @@ BC'
 
   if(return_h_object) {
     return(h) # return clust object
+  } else {
+    return(wrap_plots(A = p2, B = p1, C = (ph + plot_spacer () )  , design = layout))
   }
 }
 
