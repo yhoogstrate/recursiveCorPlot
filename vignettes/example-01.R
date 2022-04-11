@@ -1,5 +1,9 @@
 #!/usr/bin/env R
 
+
+# devtools::document()
+
+
 # load libs ----
 
 library(dplyr)

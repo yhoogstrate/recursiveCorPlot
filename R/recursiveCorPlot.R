@@ -1,17 +1,25 @@
-# recursiveCorPlot
-#
-# This is an example function named 'recursiveCorPlot'
-# which makes a clustered correlation plot using recursive correlation as
-# distance metric.
-# Some useful keyboard shortcuts for package authoring:
-#
+#!/usr/bin/env R
+
 #   Install Package:           'Ctrl + Shift + B'
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
+
+
+#' recursiveCorPlot - corplot
+#'
+#' This is an example function named 'recursiveCorPlot'
+#' which makes a clustered correlation plot using recursive correlation as
+#' distance metric.
+#' Some useful keyboard shortcuts for package authoring:
+#'
+#' @param normalised_correlation_data VST transformed or TMP read count table (rownames set to genes)
+#' @param labels Matching labels (T, F, NA) for the genes (rownames set to same genes)
+#' @param font_scale size of font
+#' @param legend_scale size of legend blocks
+#' @param method hclust method (see hclust for help)
+#' @return nothing, or h-clust object if return_h_object was set to TRUE
 #' @export
-
-
-recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , legend_scale , method="ward.D2") {
+recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , legend_scale , method="ward.D2", return_h_object = FALSE) {
   col2 <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
                              "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE",
                              "#4393C3", "#2166AC", "#053061"))
@@ -138,8 +146,9 @@ A#
 BC'
   wrap_plots(A = p2, B = p1, C = (ph + plot_spacer () )  , design = layout)
 
-
-  #return(h) # return clust object
+  if(return_h_object) {
+    return(h) # return clust object
+  }
 }
 
 
