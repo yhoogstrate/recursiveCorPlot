@@ -82,11 +82,16 @@ It is not explored for any more general use, so use with caution!
 # circles are drawn centered at x and y
 library(ggplot2)
 data(mpg)
-ggplot(mpg, aes(displ, hwy, radius=0.1)) + geom_circle(radius=0.1) + geom_point()
-ggplot(mpg, aes(displ, hwy, radius=0.05)) + geom_circle(linetype=2, radius=0.05, alpha=0.5)
-ggplot(mpg, aes(displ, hwy, radius=0.05)) + geom_circle(aes(linetype=factor(cyl)), radius=0.05, alpha=0.5)
+ggplot(mpg, aes(displ, hwy, radius=0.1)) +
+  geom_circle(radius=0.1) + geom_point()
+ggplot(mpg, aes(displ, hwy, radius=0.05)) +
+  geom_circle(linetype=2, radius=0.05, alpha=0.5)
+ggplot(mpg, aes(displ, hwy, radius=0.05)) +
+  geom_circle(aes(linetype=factor(cyl)), radius=0.05, alpha=0.5)
 df = data.frame(x = 0, y = 0)
-ggplot(df, aes(x=x, y=y, radius=1)) + geom_point(cex=4) + geom_circle(radius=1, col="red", radius.fixed=TRUE) + xlim(-3,3) + ylim(-3,3)
-ggplot(df, aes(x=x, y=y, radius=0.55)) + geom_point(cex=4) + geom_circle(radius=0.55, col="red", radius.fixed=FALSE) + xlim(-3,3) + ylim(-3,3)
+ggplot(df, aes(x=x, y=y, radius=1)) + geom_point(cex=4) +
+  geom_circle(radius=1, col="red", radius.fixed=TRUE) + xlim(-3,3) + ylim(-3,3)
+ggplot(df, aes(x=x, y=y, radius=0.55)) + geom_point(cex=4) +
+  geom_circle(radius=0.55, col="red", radius.fixed=FALSE) + xlim(-3,3) + ylim(-3,3)
 }
 \keyword{datasets}

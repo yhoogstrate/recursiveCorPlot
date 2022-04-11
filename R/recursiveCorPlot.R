@@ -17,6 +17,7 @@
 #' @param font_scale size of font
 #' @param legend_scale size of legend blocks
 #' @param method hclust method (see hclust for help)
+#' @param return_h_object when T, return the h-clust object
 #' @return nothing, or h-clust object if return_h_object was set to TRUE
 #' @export
 recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , legend_scale , method="ward.D2", return_h_object = FALSE) {

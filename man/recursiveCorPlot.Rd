@@ -22,6 +22,8 @@ recursiveCorPlot(
 
 \item{method}{hclust method (see hclust for help)}
 
+\item{return_h_object}{when T, return the h-clust object}
+
 \item{normalised_correlation_data}{VST transformed or TMP read count table (rownames set to genes)}
 }
 \value{
