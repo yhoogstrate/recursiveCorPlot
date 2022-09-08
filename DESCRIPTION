@@ -1,7 +1,7 @@
 Package: recursiveCorPlot
 Type: Package
 Title: Recursive correlation based natural clustering (using ggplot, labels and historgrams)
-Version: 0.1.2
+Version: 0.1.3
 Author: Dr. Youri Hoogstrate
 Maintainer: Youri Hoogstrate <y.hoogstrate@erasmusmc.nl>
 Description: Recursive correlation based natural clustering (using ggplot,
@@ -20,4 +20,4 @@ Imports:
     patchwork,
     reshape2,
     ggdendro
-RoxygenNote: 7.1.1.9001
+RoxygenNote: 7.2.1

@@ -1,6 +1,5 @@
 #!/usr/bin/env R
 
-
 # devtools::document()
 
 
@@ -34,6 +33,7 @@ example.metadata <- example.data %>%
 
 
 recursiveCorPlot(example.data, example.metadata, 12 , 1)
+recursiveCorPlot(example.data, example.metadata, 12 , 1, caption=paste0("n=",nrow(example.data)," samples; n=",ncol(example.data)," genes"))
 
 
 # equivalent:

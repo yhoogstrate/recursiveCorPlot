@@ -10,10 +10,13 @@ recursiveCorPlot(
   font_scale,
   legend_scale,
   method = "ward.D2",
-  return_h_object = FALSE
+  return_h_object = FALSE,
+  caption = NULL
 )
 }
 \arguments{
+\item{normalised_correlated_data}{VST transformed or TMP read count table (rownames set to genes)}
+
 \item{labels}{Matching labels (T, F, NA) for the genes (rownames set to same genes)}
 
 \item{font_scale}{size of font}
@@ -24,7 +27,7 @@ recursiveCorPlot(
 
 \item{return_h_object}{when T, return the h-clust object}
 
-\item{normalised_correlation_data}{VST transformed or TMP read count table (rownames set to genes)}
+\item{caption}{caption to be included}
 }
 \value{
 nothing, or h-clust object if return_h_object was set to TRUE

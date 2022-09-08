@@ -1,5 +1,6 @@
 #!/usr/bin/env R
 
+#   devtools::document() - run prior to running the following:
 #   Install Package:           'Ctrl + Shift + B'
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
@@ -12,16 +13,17 @@
 #' distance metric.
 #' Some useful keyboard shortcuts for package authoring:
 #'
-#' @param normalised_correlation_data VST transformed or TMP read count table (rownames set to genes)
+#' @param normalised_correlated_data VST transformed or TMP read count table (rownames set to genes)
 #' @param labels Matching labels (T, F, NA) for the genes (rownames set to same genes)
 #' @param font_scale size of font
 #' @param legend_scale size of legend blocks
 #' @param method hclust method (see hclust for help)
 #' @param return_h_object when T, return the h-clust object
+#' @param caption caption (string) to be included
 #' @return nothing, or h-clust object if return_h_object was set to TRUE
 #' @export
-recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , legend_scale , method="ward.D2", return_h_object = FALSE) {
-  col2 <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
+recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , legend_scale , method="ward.D2", return_h_object = FALSE, caption=NULL) {
+  col2 <- grDevices::colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
                              "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE",
                              "#4393C3", "#2166AC", "#053061"))
 
@@ -29,7 +31,7 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
   # remove duplicate entries:
   plt <- normalised_correlated_data %>%
     tibble::rownames_to_column('__hugo_symbol__') %>%
-    dplyr::filter(!duplicated(`__hugo_symbol__`)) %>%
+    dplyr::filter(!duplicated(.data$`__hugo_symbol__`)) %>%
     tibble::column_to_rownames('__hugo_symbol__')
 
 
@@ -39,12 +41,12 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
   plt <- plt %>%
     as.matrix %>%
     t() %>%
-    cor()
+    stats::cor()
 
 
   # find order by taking correlation of the correlation
-  h <- hclust( as.dist(1 - cor(plt)), method = method ) # recursive cor-based cluastering !!!
-  #h <- hclust( as.dist(1 - plt) , method = method ) # regular cor-based clustering
+  h <- stats::hclust(stats::as.dist(1 - stats::cor(plt)), method = method ) # recursive cor-based cluastering !!!
+  #h <- stats::hclust( stats::as.dist(1 - plt) , method = method ) # regular cor-based clustering
 
   o <- h$labels[h$order] %>% rev()
 
@@ -71,23 +73,28 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
   o.join <- data.frame(name = o, i = 1:length(o))
 
   plt.expanded2 <- reshape2::melt(plt) %>%
-    dplyr::rename(y = Var1) %>%
-    dplyr::rename(x = Var2) %>%
-    dplyr::mutate(x = as.factor(x)) %>%
-    dplyr::mutate(y = as.factor(y)) %>%
-    dplyr::left_join(o.join %>% dplyr::rename(x.order = i), by=c('x' = 'name'))%>%
-    dplyr::left_join(o.join %>% dplyr::mutate(i = nrow(.) - i + 1  ) %>% dplyr::rename(y.order = i), by=c('y' = 'name'))
+    dplyr::rename(y = .data$`Var1`) %>%
+    dplyr::rename(x = .data$`Var2`) %>%
+    dplyr::mutate(x = as.factor(.data$`x`)) %>%
+    dplyr::mutate(y = as.factor(.data$`y`)) %>%
+    dplyr::left_join(o.join %>% dplyr::rename(x.order = .data$`i`), by=c('x' = 'name'))%>%
+    dplyr::left_join(o.join %>% dplyr::mutate(i = dplyr::n() - .data$i + 1  ) %>% dplyr::rename(y.order = .data$i), by=c('y' = 'name'))
 
   rm(o.join)
 
 
 
-  p1 <- ggplot(plt.expanded2,
-               aes( x = x.order, y = y.order,
-                    radius = ((abs(value) * 0.7) + 0.3) / 2 - 0.05 ,  # [0.3 , 0.8] + 0.2 smoothened from lwd/border
-                    fill=value,
-                    col=value,
-                    label=x)
+  p1 <- ggplot(
+    plt.expanded2,
+    aes(
+      x = .data$x.order,
+      y = .data$y.order,
+      radius = ((abs(.data$value) * 0.7) + 0.3) / 2 - 0.05 ,
+      # [0.3 , 0.8] + 0.2 smoothened from lwd/border
+      fill = .data$value,
+      col = .data$value,
+      label = .data$x
+    )
   ) +
     geom_tile( col="gray", fill="white", lwd=0.15) +
     scale_fill_gradientn( colours = col2(200), na.value = "grey50", limits = c(-1,1) , guide="none") + # guide = "colourbar",
@@ -115,10 +122,13 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
     dplyr::left_join(labels %>%
                        tibble::rownames_to_column('gid'), by=c('gid' = 'gid')) %>%
     reshape2::melt(id.vars = c('gid','i'))  %>%
-    dplyr::mutate(variable = factor(variable, levels = rev(colnames(labels))))
+    dplyr::mutate(variable = factor(.data$variable, levels = rev(colnames(labels))))
 
 
-  p2 <- ggplot(plt , aes(x = i , y = variable , fill=value, label=gid)) +
+  p2 <- ggplot(plt , aes(x = .data$i ,
+                         y = .data$variable ,
+                         fill = .data$value,
+                         label = .data$gid)) +
     geom_tile(col='white',lwd=0.15) +
     #scale_x_discrete(position = "bottom")  +
     scale_x_discrete(labels = NULL, breaks = NULL) +
@@ -142,15 +152,25 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
   #(p1 + (ph))
 
 
-  layout <- '
-A#
-BC'
-  wrap_plots(A = p2, B = p1, C = (ph + plot_spacer () )  , design = layout)
+
 
   if(return_h_object) {
     return(h) # return clust object
   } else {
-    return(wrap_plots(A = p2, B = p1, C = (ph + plot_spacer () )  , design = layout))
+    layout <- '
+A#
+BC'
+
+    return(
+patchwork::wrap_plots(
+  A = p2,
+  B = p1,
+  C = (ph + plot_spacer () ),
+  design = layout) +
+  patchwork::plot_annotation(
+    caption = caption
+  )
+    )
   }
 }
 
