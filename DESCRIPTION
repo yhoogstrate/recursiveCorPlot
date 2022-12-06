@@ -15,7 +15,8 @@ Depends:
 Imports:
     stats,
     dplyr,
-    ggplot2,
+    ggplot2 (>= 3.0.0),
+    rlang (>= 1.0.2),
     tibble,
     patchwork,
     reshape2,

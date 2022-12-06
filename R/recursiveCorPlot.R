@@ -8,6 +8,7 @@
 
 
 #' recursiveCorPlot - corplot
+#' @importFrom rlang .data
 #'
 #' This is an example function named 'recursiveCorPlot'
 #' which makes a clustered correlation plot using recursive correlation as
@@ -100,7 +101,7 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
     ggplot2::geom_tile(col = "gray", fill = "white", lwd = 0.15) +
     ggplot2::scale_fill_gradientn(colours = col2(200), na.value = "grey50", limits = c(-1, 1), guide = "none") + # guide = "colourbar",
     ggplot2::scale_color_gradientn(colours = col2(200), na.value = "grey50", limits = c(-1, 1), guide = "none") +
-    ggplot2::geom_circle(radius.fixed = T) + # from THIS repo
+    geom_circle(radius.fixed = T) + # from THIS repo
     ggplot2::scale_x_discrete(labels = NULL, breaks = NULL) +
     ggplot2::theme(
       legend.position = "bottom",

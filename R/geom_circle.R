@@ -96,7 +96,6 @@ GeomCircle <- ggplot2::ggproto("GeomCircle", ggplot2::Geom,
 #'   geom_circle(radius=1, col="red", radius.fixed=TRUE) + xlim(-3,3) + ylim(-3,3)
 #' ggplot(df, aes(x=x, y=y, radius=0.55)) + geom_point(cex=4) +
 #'   geom_circle(radius=0.55, col="red", radius.fixed=FALSE) + xlim(-3,3) + ylim(-3,3)
-
 geom_circle <- function(mapping = NULL, data = NULL, stat = "identity",
                         position = "identity", na.rm = FALSE, show.legend = NA,
                         inherit.aes = TRUE, radius.fixed = FALSE, ...) {
