@@ -59,9 +59,10 @@ recursiveCorPlot(example.data, example.metadata, 12 , 1, caption=paste0("n=",nro
 
 ## equivalent in corrplot
 
-```{r, }
+```{r, eval=F}
 install.packages('corrplot')
-corrplot::corrplot(cor(t(example.data)))
+library(corrplot)
+corrplot(cor(t(example.data)))
 ```
 
 # Example 2

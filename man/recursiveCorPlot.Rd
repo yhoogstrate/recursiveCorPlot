@@ -33,8 +33,5 @@ recursiveCorPlot(
 nothing, or h-clust object if return_h_object was set to TRUE
 }
 \description{
-This is an example function named 'recursiveCorPlot'
-which makes a clustered correlation plot using recursive correlation as
-distance metric.
-Some useful keyboard shortcuts for package authoring:
+recursiveCorPlot - corplot
 }
