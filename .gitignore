@@ -4,3 +4,5 @@
 .Ruserdata
 .directory
 *.bak
+/doc/
+/Meta/

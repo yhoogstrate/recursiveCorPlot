@@ -2,23 +2,31 @@
 title: "recursiveCorPlot Manual / Demo"
 author: "Youri Hoogstrate"
 date: "`r Sys.Date()`"
+package: 'recursiveCorPlot'
 
 vignette: >
   %\VignetteIndexEntry{recursiveCorPlot Manual}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+
 ---
+
 ```
 #devtools::document()
+
+# following worked:
+#devtools::build_vignettes()
+```
+
+# install libs
+```{r setup, eval=F}
+devtools::install_github("yhoogstrate/recursiveCorPlot")
 ```
 
 # load libs
-
-```{r setup}
+```{r}
 library(ggplot2)
 library(dplyr)
-
-devtools::install_github("yhoogstrate/recursiveCorPlot")
 library(recursiveCorPlot)
 ```
 
@@ -51,7 +59,7 @@ recursiveCorPlot(example.data, example.metadata, 12 , 1, caption=paste0("n=",nro
 
 ## equivalent in corrplot
 
-```{r}
+```{r, }
 install.packages('corrplot')
 corrplot::corrplot(cor(t(example.data)))
 ```
