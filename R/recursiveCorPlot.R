@@ -29,18 +29,18 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
 
 
   # remove duplicate entries:
-  plt <- normalised_correlated_data %>%
-    tibble::rownames_to_column('__hugo_symbol__') %>%
-    dplyr::filter(!duplicated(.data$`__hugo_symbol__`)) %>%
+  plt <- normalised_correlated_data |>
+    tibble::rownames_to_column('__hugo_symbol__') |>
+    dplyr::filter(!duplicated(.data$`__hugo_symbol__`)) |>
     tibble::column_to_rownames('__hugo_symbol__')
 
 
   #h <- hclust(dist(plt %>% as.matrix %>% t() %>%  scale %>% t() %>% as.matrix), method = method ) # Euclidean distance based clustering
 
   # determine correlation
-  plt <- plt %>%
-    as.matrix %>%
-    t() %>%
+  plt <- plt |>
+    base::as.matrix() |>
+    base::t() |>
     stats::cor()
 
 
@@ -48,20 +48,22 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
   h <- stats::hclust(stats::as.dist(1 - stats::cor(plt)), method = method ) # recursive cor-based cluastering !!!
   #h <- stats::hclust( stats::as.dist(1 - plt) , method = method ) # regular cor-based clustering
 
-  o <- h$labels[h$order] %>% rev()
+  #'@todo dplyr::arrange()
+  o <- h$labels[h$order] |>
+    base::rev()
 
   ph <- ggdendro::ggdendrogram(h, rotate = TRUE, theme_dendro = FALSE) +
     ggdendro::theme_dendro()
 
   # re-order to cor-cor clustering order and transform from data.frame into matrix
   plt <- plt %>%
-    as.data.frame %>%
+    base::as.data.frame %>%
     dplyr::select(o) %>%
-    t() %>%
-    as.data.frame %>%
+    base::t() %>%
+    base::as.data.frame %>%
     dplyr::select(o) %>%
-    t() %>%
-    as.matrix
+    base::t() %>%
+    base::as.matrix
 
 
   # to test:
@@ -70,21 +72,21 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
 
 
   # add x and y co-ordinates later on to melted table
-  o.join <- data.frame(name = o, i = 1:length(o))
+  o.join <- base::data.frame(name = o, i = 1:length(o))
 
-  plt.expanded2 <- reshape2::melt(plt) %>%
-    dplyr::rename(y = .data$`Var1`) %>%
-    dplyr::rename(x = .data$`Var2`) %>%
-    dplyr::mutate(x = as.factor(.data$`x`)) %>%
-    dplyr::mutate(y = as.factor(.data$`y`)) %>%
-    dplyr::left_join(o.join %>% dplyr::rename(x.order = .data$`i`), by=c('x' = 'name'))%>%
-    dplyr::left_join(o.join %>% dplyr::mutate(i = dplyr::n() - .data$i + 1  ) %>% dplyr::rename(y.order = .data$i), by=c('y' = 'name'))
+  plt.expanded2 <- reshape2::melt(plt) |>
+    dplyr::rename(y = .data$`Var1`) |>
+    dplyr::rename(x = .data$`Var2`) |>
+    dplyr::mutate(x = as.factor(.data$`x`)) |>
+    dplyr::mutate(y = as.factor(.data$`y`)) |>
+    dplyr::left_join(o.join |>  dplyr::rename(x.order = .data$`i`), by=c('x' = 'name')) |>
+    dplyr::left_join(o.join  |>  dplyr::mutate(i = dplyr::n() - .data$i + 1  ) %>% dplyr::rename(y.order = .data$i), by=c('y' = 'name'))
 
-  rm(o.join)
+  base::rm(o.join)
 
 
 
-  p1 <- ggplot(
+  p1 <- ggplot2::ggplot(
     plt.expanded2,
     aes(
       x = .data$x.order,
@@ -96,12 +98,12 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
       label = .data$x
     )
   ) +
-    geom_tile( col="gray", fill="white", lwd=0.15) +
-    scale_fill_gradientn( colours = col2(200), na.value = "grey50", limits = c(-1,1) , guide="none") + # guide = "colourbar",
-    scale_color_gradientn( colours = col2(200), na.value = "grey50", limits = c(-1,1) , guide="none" ) +
-    geom_circle(radius.fixed = T) + # from THIS repo
-    scale_x_discrete(labels = NULL, breaks = NULL) +
-    theme(legend.position = 'bottom',
+    ggplot2::geom_tile( col="gray", fill="white", lwd=0.15) +
+    ggplot2::scale_fill_gradientn( colours = col2(200), na.value = "grey50", limits = c(-1,1) , guide="none") + # guide = "colourbar",
+    ggplot2::scale_color_gradientn( colours = col2(200), na.value = "grey50", limits = c(-1,1) , guide="none" ) +
+    ggplot2::geom_circle(radius.fixed = T) + # from THIS repo
+    ggplot2::scale_x_discrete(labels = NULL, breaks = NULL) +
+    ggplot2::theme(legend.position = 'bottom',
           axis.text.y = element_text(size = font_scale, angle = 0, hjust = 1, vjust = 0.5), # used to be [3,6] reduce font size here, should become argument
           axis.text.x = element_text(angle = 90, hjust = 0, vjust = 0.5, color="gray80"),
 
@@ -112,37 +114,37 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
           panel.background = element_blank(),
           axis.line = element_blank()
     ) +
-    labs(y = NULL, x=NULL, main=NULL) +
+    ggplot2::labs(y = NULL, x=NULL, main=NULL) +
     ggplot2::coord_fixed() +
-    scale_y_continuous(name=NULL, breaks = length(o):1, labels = o)
+    ggplot2::scale_y_continuous(name=NULL, breaks = length(o):1, labels = o)
 
 
 
-  plt <- data.frame(gid = o, i = 1:length(o)) %>%
-    dplyr::left_join(labels %>%
-                       tibble::rownames_to_column('gid'), by=c('gid' = 'gid')) %>%
-    reshape2::melt(id.vars = c('gid','i'))  %>%
-    dplyr::mutate(variable = factor(.data$variable, levels = rev(colnames(labels))))
+  plt <- base::data.frame(gid = o, i = 1:length(o)) |>
+    dplyr::left_join(labels |>
+                       tibble::rownames_to_column('gid'), by=c('gid' = 'gid')) |>
+    reshape2::melt(id.vars = c('gid','i')) |>
+    dplyr::mutate(variable = factor(.data$variable, levels = base::rev(base::colnames(labels))))
 
 
-  p2 <- ggplot(plt , aes(x = .data$i ,
+  p2 <- ggplot2::ggplot(plt , aes(x = .data$i ,
                          y = .data$variable ,
                          fill = .data$value,
                          label = .data$gid)) +
-    geom_tile(col='white',lwd=0.15) +
+    ggplot2::geom_tile(col='white',lwd=0.15) +
     #scale_x_discrete(position = "bottom")  +
-    scale_x_discrete(labels = NULL, breaks = NULL) +
-    theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust = 0.5),
+    ggplot2::scale_x_discrete(labels = NULL, breaks = NULL) +
+    ggplot2::theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust = 0.5),
           axis.text.y = element_text(size = font_scale, angle = 0, hjust = 1, vjust = 0.5),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
           panel.background = element_blank(),
           axis.line = element_blank()
     ) +
-    guides(fill="none") +
+    ggplot2::guides(fill="none") +
     ggplot2::coord_fixed(ratio = legend_scale) + # used to be 2.75
-    labs(x=NULL, y=NULL) +
-    scale_fill_manual(values=c('TRUE'='red','FALSE'='gray98'))
+    ggplot2::labs(x=NULL, y=NULL) +
+    ggplot2::scale_fill_manual(values=c('TRUE'='red','FALSE'='gray98'))
   #scale_fill_manual(values=c('TRUE'='gray40','FALSE'='gray95'))
 
 

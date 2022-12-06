@@ -27,7 +27,7 @@ recursiveCorPlot(
 
 \item{return_h_object}{when T, return the h-clust object}
 
-\item{caption}{caption to be included}
+\item{caption}{caption (string) to be included}
 }
 \value{
 nothing, or h-clust object if return_h_object was set to TRUE
