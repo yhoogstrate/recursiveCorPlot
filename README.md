@@ -5,15 +5,22 @@ recursiveCorPlot - natural clustering or RNA-seq data
 -   <a href="#introduction" id="toc-introduction">Introduction</a>
     -   <a href="#usage" id="toc-usage">Usage</a>
 
-<!-- README.md is generated from README.Rmd through: usethis::use_readme_md() . Please edit that file -->
+<!-- README.md is generated from README.Rmd through: devtools::build_readme() . Please edit that file -->
+
+------------------------------------------------------------------------
+
+![license](https://img.shields.io/badge/license-GPL--3-blue.svg)
+[![GitHub
+issues](https://img.shields.io/github/issues/yhoogstrate/recursiveCorPlot.svg)]()
+![rversion](https://img.shields.io/badge/R%20version-%3E4.1.0-lightgrey.svg)
 
 For classical hierarchical clustering of RNA-seq data, the use of
 Euclidean distances as distance metric often result in unnatural
 clusters. For example, if the clustering contains genes with only a few
 samples with strong up-regulation by hyper-amplifications, these will
-weigh heavily at the Eucledian distance(s). This distance metric is
+weigh heavily at the Euclidean distance(s). This distance metric is
 therefore sensitive to outliers. Instead, correlation based clustering
-(distance = 1 – correlation(m)) is more common for RNA-seq data, where
+(distance = `1 – correlation(m)`) is more common for RNA-seq data, where
 spearman’s rank can be used to more aggressively suppress outliers. We
 observed some genes, relatively rich in zero counts, of which the
 correlation to all other genes are somewhat lower, but the correlations
