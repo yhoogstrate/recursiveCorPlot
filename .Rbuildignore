@@ -3,3 +3,4 @@
 extern/
 ^doc$
 ^Meta$
+^README.Rmd

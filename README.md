@@ -1,8 +1,8 @@
 recursiveCorPlot - natural clustering or RNA-seq data
 ================
 
--   <a href="#installation" id="toc-installation">Installation</a>
 -   <a href="#introduction" id="toc-introduction">Introduction</a>
+-   <a href="#installation" id="toc-installation">Installation</a>
     -   <a href="#usage" id="toc-usage">Usage</a>
 
 <!-- README.md is generated from README.Rmd through: devtools::build_readme() . Please edit that file -->
@@ -13,6 +13,8 @@ recursiveCorPlot - natural clustering or RNA-seq data
 [![GitHub
 issues](https://img.shields.io/github/issues/yhoogstrate/recursiveCorPlot.svg)]()
 ![rversion](https://img.shields.io/badge/R%20version-%3E4.1.0-lightgrey.svg)
+
+# Introduction
 
 For classical hierarchical clustering of RNA-seq data, the use of
 Euclidean distances as distance metric often result in unnatural
@@ -38,11 +40,6 @@ You can install *recursiveCorPlot* from Github using:
 ``` r
 devtools::install_github("yhoogstrate/recursiveCorPlot")
 ```
-
-# Introduction
-
-Using recursive correlation clustering provides considerably more
-natural clusters using RNA-seq data.
 
 ## Usage
 
