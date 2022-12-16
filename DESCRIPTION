@@ -6,7 +6,7 @@ Author: Dr. Youri Hoogstrate
 Maintainer: Youri Hoogstrate <y.hoogstrate@erasmusmc.nl>
 Description: Recursive correlation based natural clustering (using ggplot,
     labels and historgrams). It uses a (VST/tpm) transformed expression matrix as input.
-License: GPL (>= 2)
+License: GPL-3 + file LICENSE
 URL: https://github.com/yhoogstrate/recursiveCorPlot
 Encoding: UTF-8
 LazyData: true
