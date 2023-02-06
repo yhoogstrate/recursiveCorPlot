@@ -1,4 +1,4 @@
-recursiveCorPlot - natural clustering or RNA-seq data
+recursiveCorPlot - natural clustering of RNA-seq data
 ================
 
 -   <a href="#introduction" id="toc-introduction">Introduction</a>
