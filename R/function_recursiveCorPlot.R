@@ -24,7 +24,7 @@
 #' @param caption caption (string) to be included
 #' @return nothing, or h-clust object if return_h_object was set to TRUE
 #' @export
-recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , legend_scale , method="ward.D2", return_h_object = FALSE, caption=NULL) {
+recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , legend_scale , method="ward.D2", signed = TRUE, return_h_object = FALSE, caption=NULL) {
   col2 <- grDevices::colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
                              "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE",
                              "#4393C3", "#2166AC", "#053061"))
@@ -44,6 +44,8 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
     base::as.matrix() |>
     base::t() |>
     stats::cor()
+    
+  plt <- if(signed == TRUE) plt else abs(plt)
 
 
   # find order by taking correlation of the correlation
@@ -89,18 +91,14 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
 
 
   p1 <- ggplot2::ggplot(plt.expanded2, ggplot2::aes(
-      x = .data$x.order,
-      y = .data$y.order,
-      radius = ((abs(.data$value) * 0.7) + 0.3) / 2 - 0.05,
-      # [0.3 , 0.8] + 0.2 smoothened from lwd/border
-      fill = .data$value,
-      col = .data$value,
-      label = .data$x
-    )
-  ) +
+    x = .data$x.order,
+    y = .data$y.order,
+    radius = ((abs(.data$value) * 0.7) + 0.3) / 2 - 0.05,
+    # [0.3 , 0.8] + 0.2 smoothened from lwd/border
+    fill = .data$value,
+    col = .data$value,
+    label = .data$x)) +
     ggplot2::geom_tile(col = "gray", fill = "white", lwd = 0.15) +
-    ggplot2::scale_fill_gradientn(colours = col2(200), na.value = "grey50", limits = c(-1, 1), guide = "none") + # guide = "colourbar",
-    ggplot2::scale_color_gradientn(colours = col2(200), na.value = "grey50", limits = c(-1, 1), guide = "none") +
     geom_circle(radius.fixed = T) + # from THIS repo
     ggplot2::scale_x_discrete(labels = NULL, breaks = NULL) +
     ggplot2::theme(
@@ -116,6 +114,14 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
     ggplot2::labs(y = NULL, x = NULL, main = NULL) +
     ggplot2::coord_fixed() +
     ggplot2::scale_y_continuous(name = NULL, breaks = base::length(o):1, labels = o)
+  
+  p1 <- if (signed == T) {p1 + 
+        ggplot2::scale_fill_gradientn(colours = col2(200), na.value = "grey50", limits = c(-1,1), guide = "none") + # guide = "colourbar",
+        ggplot2::scale_color_gradientn(colours = col2(200), na.value = "grey50", limits = c(-1,1), guide = "none")
+    } else {p1 + 
+        ggplot2::scale_color_distiller(palette = "Spectral", na.value = "grey50", limits = c(0,1), guide = "none") + # guide = "colourbar",
+        ggplot2::scale_fill_distiller(palette = "Spectral", na.value = "grey50", limits = c(0,1), guide = "none")
+    }
 
 
 
