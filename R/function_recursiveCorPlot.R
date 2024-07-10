@@ -10,7 +10,8 @@
 #' recursiveCorPlot - corplot
 #' @importFrom rlang .data
 #'
-#' This is an example function named 'recursiveCorPlot'
+#' @description
+#' This is a function named 'recursiveCorPlot'
 #' which makes a clustered correlation plot using recursive correlation as
 #' distance metric.
 #' Some useful keyboard shortcuts for package authoring:
@@ -43,7 +44,7 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
   plt <- plt |>
     base::as.matrix() |>
     base::t() |>
-    stats::cor()
+    stats::cor(use="complete.obs") # copes with N/A values
 
 
   # find order by taking correlation of the correlation

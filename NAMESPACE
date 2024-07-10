@@ -3,5 +3,5 @@
 export(GeomCircle)
 export(geom_circle)
 export(recursiveCorPlot)
-
-importFrom(rlang, .data)
+importFrom(Rdpack,reprompt)
+importFrom(rlang,.data)

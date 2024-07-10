@@ -5,8 +5,8 @@
 #'
 #' See the vignette for more details, a step by step explanation of these functions.
 #'
-#' @docType package
-#' @name recursiveCorPlot
+## @docType package
+#' @name recursiveCorPlot-package
 #'
 #' @importFrom rlang .data
 #' @importFrom Rdpack reprompt
@@ -14,3 +14,4 @@
 NULL
 #> NULL
 
+"_PACKAGE"
