@@ -43,9 +43,7 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
   # determine correlation
   plt <- plt |>
     base::as.matrix() |>
-    base::t() |>
-    stats::cor(use="complete.obs") # copes with N/A values
-
+    base::t()
 
   # find order by taking correlation of the correlation
   h <- stats::hclust(stats::as.dist(1 - stats::cor(plt)), method = method ) # recursive cor-based cluastering !!!
@@ -61,10 +59,10 @@ recursiveCorPlot <- function(normalised_correlated_data, labels, font_scale , le
   # re-order to cor-cor clustering order and transform from data.frame into matrix
   plt <- plt |>
     base::as.data.frame() |>
-    dplyr::select(o) |>
+    dplyr::select(dplyr::all_of(o)) |>
     base::t() |>
     base::as.data.frame() |>
-    dplyr::select(o) |>
+    dplyr::select(dplyr::all_of(o)) |>
     base::t() |>
     base::as.matrix()
 
